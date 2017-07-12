@@ -1,0 +1,44 @@
+{
+  "name": "file-management",
+  "version": "1.0.0",
+  "description": "A simple lib to support file operations across projects",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dial-once/node-file-management.git"
+  },
+  "keywords": [
+    "Dial-Once",
+    "file",
+    "management",
+    "upload",
+    "download",
+    "delete"
+  ],
+  "author": "mrister@dial-once.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dial-once/node-file-management/issues"
+  },
+  "homepage": "https://github.com/dial-once/node-file-management#readme",
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "dotenv": "^4.0.0",
+    "eslint": "^3.16.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.82.0"
+  }
+}
