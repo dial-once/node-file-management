@@ -53,21 +53,4 @@ describe('Mock Provider', () => {
 
     it('to delete a file', () => manager.deleteFile(testFile));
   });
-
-  describe('should work without options', () => {
-    it('', () => {
-      const manager = fileManagement.create('S3', {
-        auth: {
-          AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-          AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
-          AWS_REGION: process.env.AWS_REGION,
-        }
-      });
-
-      expect(manager).to.be.an('Object').and.to.be.ok;
-      expect(manager.downloadFile).to.be.a('Function').and.to.be.ok;
-      expect(manager.uploadFile).to.be.a('Function').and.to.be.ok;
-      expect(manager.deleteFile).to.be.a('Function').and.to.be.ok;
-    });
-  });
 });
