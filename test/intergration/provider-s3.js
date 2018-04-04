@@ -1,4 +1,4 @@
-require('dotenv').load({ silent: true });
+require('dotenv').load({ silent: true, path: `${__dirname}/.env` });
 const chai = require('chai');
 const assert = require('assert');
 const fs = require('fs');
