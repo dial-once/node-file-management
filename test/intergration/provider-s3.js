@@ -59,7 +59,7 @@ describe('S3 Provider', () => {
     it('to delete a file', () => manager.deleteFile(testLocation, testFileName));
   });
 
-  describe('should initialize S3 provider without options', () => {
+  describe('initialize S3 provider', () => {
     it('should work without options', () => {
       const manager = fileManagement.create('S3', {
         auth: {
