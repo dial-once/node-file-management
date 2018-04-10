@@ -1,4 +1,11 @@
 # file-management
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/gate?key=file-management)](http://sonar.dialonce.net/dashboard?id=file-management)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=ncloc)](http://sonar.dialonce.net/dashboard?id=file-management)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=coverage)](http://sonar.dialonce.net/dashboard?id=file-management)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=code_smells)](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=coverage)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=bugs)](http://sonar.dialonce.net/dashboard?id=file-management)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=sqale_debt_ratio)](http://sonar.dialonce.net/dashboard?id=file-management)
+
 Library for easy file storage and management supporting upload, downloads and deletes
 
 ## Description
@@ -6,7 +13,7 @@ It relies on an abstract concept of provider to do the work needed. The only con
 
 ## Tests
 TO run integration tests (test/integration dir) you must provide 'AWS_ACCESS_KEY_ID', AWS_SECRET_ACCESS_KEY and AWS_REGION env vars
-  
+
 ### Examples (S3):
 #### Upload (uploads a file to storage)
 ```js

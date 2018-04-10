@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    docker:
+    - image: dialonce/nodejs:lts-carbon # the primary container, where your job's commands are run
+    steps:
+    - checkout # check out the code in the project directory
+    - run: apk add --no-cache make python
+    - run: make deps
+    - run: make test
+## Comment out one permission denied is fixed
+#    - run: make sonar
