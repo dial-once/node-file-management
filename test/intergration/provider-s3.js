@@ -1,4 +1,4 @@
-require('dotenv').load({ silent: true });
+require('dotenv').load({ silent: true, path: `${__dirname}/.env` });
 const chai = require('chai');
 const assert = require('assert');
 const fs = require('fs');
@@ -57,5 +57,22 @@ describe('S3 Provider', () => {
     });
 
     it('to delete a file', () => manager.deleteFile(testLocation, testFileName));
+  });
+
+  describe('initialize S3 provider', () => {
+    it('should work without options', () => {
+      const manager = fileManagement.create('S3', {
+        auth: {
+          AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+          AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+          AWS_REGION: process.env.AWS_REGION,
+        }
+      });
+
+      expect(manager).to.be.an('Object').and.to.be.ok;
+      expect(manager.downloadFile).to.be.a('Function').and.to.be.ok;
+      expect(manager.uploadFile).to.be.a('Function').and.to.be.ok;
+      expect(manager.deleteFile).to.be.a('Function').and.to.be.ok;
+    });
   });
 });
