@@ -1,4 +1,11 @@
 # file-management
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/gate?key=file-management)](http://sonar.dialonce.net/dashboard?id=file-management)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=ncloc)](http://sonar.dialonce.net/dashboard?id=file-management)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=coverage)](http://sonar.dialonce.net/dashboard?id=file-management)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=code_smells)](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=coverage)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=bugs)](http://sonar.dialonce.net/dashboard?id=file-management)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=file-management&metric=sqale_debt_ratio)](http://sonar.dialonce.net/dashboard?id=file-management)
+
 Library for easy file storage and management supporting upload, downloads and deletes
 
 ## Description
