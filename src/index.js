@@ -10,7 +10,7 @@ const defaultConfig = require('./providers/config').create();
  */
 module.exports.create = (provider = 'default', config = defaultConfig) => {
   assert(provider, 'A provider must be specified');
-  const activeProvider = providerFactory.createProvider(provider, config);
+  const activeProvider = providerFactory.createProvider(provider, Object.assign({ options: {} }, config));
   /**
    *@class FileManager
    */
