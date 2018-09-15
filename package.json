@@ -1,6 +1,6 @@
 {
   "name": "file-management",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple lib to support file operations across projects",
   "main": "src/index.js",
   "directories": {
