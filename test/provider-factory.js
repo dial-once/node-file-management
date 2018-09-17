@@ -1,8 +1,8 @@
 const chai = require('chai');
 const fileManagement = require('../src/index');
 
-const BaseProvider = fileManagement.providers.BaseProvider;
-const expect = chai.expect;
+const { BaseProvider } = fileManagement.providers;
+const { expect } = chai;
 
 describe('Provider Factory', () => {
   expect(fileManagement.providers).to.be.an('object').and.to.be.ok;

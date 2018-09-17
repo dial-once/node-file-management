@@ -4,7 +4,7 @@ const assert = require('assert');
 const fs = require('fs');
 const fileManagement = require('../../src/index');
 
-const expect = chai.expect;
+const { expect } = chai;
 
 describe('S3 Provider', () => {
   describe('should initialize S3 provider and use it', () => {
@@ -33,27 +33,27 @@ describe('S3 Provider', () => {
     it('to upload a file', () => {
       const stream = fs.createReadStream('./LICENSE');
       return manager
-      .uploadFile(testLocation, testFileName, stream)
-      .then((result) => {
-        expect(result).to.be.an('object').and.to.be.ok;
-        expect(result.Location).to.be.a('String')
-        .and.to.include(testFileName)
-        .and.to.include('dialonce-uploads')
-        .and.to.include('ci');
-      });
+        .uploadFile(testLocation, testFileName, stream)
+        .then((result) => {
+          expect(result).to.be.an('object').and.to.be.ok;
+          expect(result.Location).to.be.a('String')
+            .and.to.include(testFileName)
+            .and.to.include('dialonce-uploads')
+            .and.to.include('ci');
+        });
     });
 
     it('to download a file', () => {
       const stream = fs.createWriteStream(testFileName);
       return manager
-      .downloadFile(testLocation, testFileName, stream)
-      .then(() => {
-        if (!fs.existsSync(testFileName)) {
-          throw new Error('File does not exist');
-        } else {
-          fs.unlinkSync(testFileName);
-        }
-      });
+        .downloadFile(testLocation, testFileName, stream)
+        .then(() => {
+          if (!fs.existsSync(testFileName)) {
+            throw new Error('File does not exist');
+          } else {
+            fs.unlinkSync(testFileName);
+          }
+        });
     });
 
     it('to delete a file', () => manager.deleteFile(testLocation, testFileName));

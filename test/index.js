@@ -1,8 +1,8 @@
 const chai = require('chai');
 const fileManagement = require('../src/index');
 
-const BaseProvider = fileManagement.providers.BaseProvider;
-const expect = chai.expect;
+const { BaseProvider } = fileManagement.providers;
+const { expect } = chai;
 
 describe('Mock Provider', () => {
   describe('should create a provider and use it', () => {
@@ -40,16 +40,16 @@ describe('Mock Provider', () => {
     const testFile = '/path/to/some/imaginary/file';
 
     it('to upload a file', () => manager
-    .uploadFile(testFile)
-    .then((result) => {
-      expect(result).to.eq(testFile);
-    }));
+      .uploadFile(testFile)
+      .then((result) => {
+        expect(result).to.eq(testFile);
+      }));
 
     it('to download a file', () => manager
-    .downloadFile(testFile)
-    .then((result) => {
-      expect(result).to.eq(testFile);
-    }));
+      .downloadFile(testFile)
+      .then((result) => {
+        expect(result).to.eq(testFile);
+      }));
 
     it('to delete a file', () => manager.deleteFile(testFile));
   });

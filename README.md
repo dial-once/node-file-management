@@ -13,7 +13,7 @@ It relies on an abstract concept of provider to do the work needed. The only con
 
 ## Tests
 TO run integration tests (test/integration dir) you must provide 'AWS_ACCESS_KEY_ID', AWS_SECRET_ACCESS_KEY and AWS_REGION env vars
-  
+
 ### Examples (S3):
 #### Upload (uploads a file to storage)
 ```js
