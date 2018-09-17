@@ -37,11 +37,11 @@ class S3Provider extends BaseProvider {
       });
 
       return this[s3]
-      .getObject(params)
-      .createReadStream()
-      .on('end', () => resolve(true))
-      .on('error', error => reject(error))
-      .pipe(writableStream);
+        .getObject(params)
+        .createReadStream()
+        .on('end', () => resolve(true))
+        .on('error', error => reject(error))
+        .pipe(writableStream);
     });
   }
 
@@ -82,12 +82,12 @@ class S3Provider extends BaseProvider {
       });
 
       return this[s3]
-      .deleteObject(params, (err, result) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(result);
-      });
+        .deleteObject(params, (err, result) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(result);
+        });
     });
   }
 }

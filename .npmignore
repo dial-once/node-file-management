@@ -14,3 +14,4 @@ test
 Makefile
 sonar-project.properties
 gen
+.circleci
