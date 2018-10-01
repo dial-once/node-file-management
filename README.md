@@ -43,6 +43,24 @@ const manager = fileManagement.create('S3', {
       .catch(console.error);
 ```
 
+#### Run cloudfront invalidation
+After `upload` function is executed, it exposes `invalidate` function along with the original upload result:
+```js
+manager.uploadFile(...args)
+.then(({ invalidate, result }) => {
+  console.log(result);
+  /*
+    paths and cloudfront distribution id
+    @param paths defaults to ['/*']
+    @param distribution can be set as CLOUDFRONT_DISTRIBUTION_ID env var
+   */
+  return invalidate(['/img/*', '123ABC456EFG'])
+})
+.then((invalidationResult) => {
+  console.log(invalidationResult);
+});
+```
+
 #### Download (Downloads a file from storage)
 ```js
 const fileManagement = require('file-management');
