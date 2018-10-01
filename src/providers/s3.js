@@ -1,8 +1,10 @@
 const S3 = require('aws-sdk/clients/s3');
+const Cloudfront = require('aws-sdk/clients/cloudfront');
 const assert = require('assert');
 const BaseProvider = require('./base');
 
 const s3 = Symbol('s3');
+const cloudFront = Symbol('cloudFront');
 
 class S3Provider extends BaseProvider {
   /**
@@ -19,9 +21,16 @@ class S3Provider extends BaseProvider {
       region: config.auth.AWS_REGION || null
     });
 
+    this[cloudFront] = new Cloudfront({
+      accessKeyId: config.auth.AWS_ACCESS_KEY_ID || null,
+      secretAccessKey: config.auth.AWS_SECRET_ACCESS_KEY || null,
+      region: config.auth.AWS_REGION || null
+    });
+
     this.uploadFile = this.uploadFile.bind(this);
     this.downloadFile = this.downloadFile.bind(this);
     this.deleteFile = this.deleteFile.bind(this);
+    this.invalidate = this.invalidate.bind(this);
   }
 
   downloadFile(location, uploadName, writableStream) {
@@ -65,8 +74,33 @@ class S3Provider extends BaseProvider {
         if (err) {
           return reject(err);
         }
-        return resolve(result);
+        return resolve({
+          invalidate: this.invalidate,
+          result
+        });
       });
+    });
+  }
+
+  invalidate(invalidationPaths = ['/*'], distribution = process.env.CLOUDFRONT_DISTRIBUTION_ID) {
+    return new Promise((resolve, reject) => {
+      assert(distribution, 'distribution has to be a non empty string');
+      assert(
+        (invalidationPaths && typeof invalidationPaths === 'string')
+        || Array.isArray(invalidationPaths),
+        'invalidationPaths must be a string or array of strings'
+      );
+      const targetPaths = Array.isArray(invalidationPaths) ? invalidationPaths : [invalidationPaths];
+      this[cloudFront].createInvalidation({
+        DistributionId: distribution,
+        InvalidationBatch: {
+          CallerReference: Date.now().toString(),
+          Paths: {
+            Quantity: targetPaths.length,
+            Items: targetPaths
+          }
+        }
+      }, (err, data) => (err ? reject(err) : resolve(data)));
     });
   }
 

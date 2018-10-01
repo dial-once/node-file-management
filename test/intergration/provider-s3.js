@@ -11,6 +11,7 @@ describe('S3 Provider', () => {
     assert(process.env.AWS_ACCESS_KEY_ID, 'AWS_ACCESS_KEY_ID must be defined as env var');
     assert(process.env.AWS_SECRET_ACCESS_KEY, 'AWS_SECRET_ACCESS_KEY must be defined as env var');
     assert(process.env.AWS_REGION, 'process.env.AWS_REGION must be defined as env var');
+    assert(process.env.CLOUDFRONT_DISTRIBUTION_ID, 'process.env.CLOUDFRONT_DISTRIBUTION_ID must be defined as env var');
 
     // use the default provider
     const manager = fileManagement.create('S3', {
@@ -34,12 +35,27 @@ describe('S3 Provider', () => {
       const stream = fs.createReadStream('./LICENSE');
       return manager
         .uploadFile(testLocation, testFileName, stream)
-        .then((result) => {
+        .then(({ result }) => {
           expect(result).to.be.an('object').and.to.be.ok;
           expect(result.Location).to.be.a('String')
             .and.to.include(testFileName)
             .and.to.include('dialonce-uploads')
             .and.to.include('ci');
+        });
+    });
+
+    it('to expose the function to run invalidation after upload', () => {
+      const stream = fs.createReadStream('./LICENSE');
+      return manager
+        .uploadFile(testLocation, testFileName, stream)
+        .then((result) => {
+          expect(result.invalidate).to.be.a('function');
+          expect(result.result).to.be.an('object').and.to.be.ok;
+          return result.invalidate();
+        })
+        .then((result) => {
+          expect(result).to.be.an('object').and.to.be.ok;
+          expect(result.Invalidation).to.be.an('object');
         });
     });
 
