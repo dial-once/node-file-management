@@ -26,6 +26,7 @@ describe('S3 Provider', () => {
     expect(manager).to.be.an('Object').and.to.be.ok;
     expect(manager.downloadFile).to.be.a('Function').and.to.be.ok;
     expect(manager.uploadFile).to.be.a('Function').and.to.be.ok;
+    expect(manager.invalidate).to.be.a('Function').and.to.be.ok;
     expect(manager.deleteFile).to.be.a('Function').and.to.be.ok;
 
     const testFileName = 'test-LICENSE';
@@ -35,7 +36,7 @@ describe('S3 Provider', () => {
       const stream = fs.createReadStream('./LICENSE');
       return manager
         .uploadFile(testLocation, testFileName, stream)
-        .then(({ result }) => {
+        .then((result) => {
           expect(result).to.be.an('object').and.to.be.ok;
           expect(result.Location).to.be.a('String')
             .and.to.include(testFileName)
@@ -44,20 +45,11 @@ describe('S3 Provider', () => {
         });
     });
 
-    it('to expose the function to run invalidation after upload', () => {
-      const stream = fs.createReadStream('./LICENSE');
-      return manager
-        .uploadFile(testLocation, testFileName, stream)
-        .then((result) => {
-          expect(result.invalidate).to.be.a('function');
-          expect(result.result).to.be.an('object').and.to.be.ok;
-          return result.invalidate();
-        })
-        .then((result) => {
-          expect(result).to.be.an('object').and.to.be.ok;
-          expect(result.Invalidation).to.be.an('object');
-        });
-    });
+    it('to run invalidation', () => manager.invalidate().then((result) => {
+      expect(result).to.be.an('object').and.to.be.ok;
+      expect(result.Location).to.be.a('string').and.to.be.ok;
+      expect(result.Invalidation).to.be.an('object').and.to.be.ok;
+    }));
 
     it('to download a file', () => {
       const stream = fs.createWriteStream(testFileName);
