@@ -43,6 +43,29 @@ const manager = fileManagement.create('S3', {
       .catch(console.error);
 ```
 
+#### Run cloudfront invalidation
+```js
+const fileManagement = require('file-management');
+const manager = fileManagement.create('S3', {
+  auth: {
+    // AWS creds need to be provided
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+    AWS_REGION: process.env.AWS_REGION,
+  },
+  // s3 options as needed
+  options: {}
+});
+
+const invalidationPaths = ['/css/*', '/img/*']; // ['/*'] by default
+const distributionId = '123ABC456EFG' || process.env.CLOUDFRONT_DISTRIBUTION_ID;
+
+manager.invalidate(invalidationPaths, distributionId)
+  .then((result) => {
+    console.log(result);
+  });
+```
+
 #### Download (Downloads a file from storage)
 ```js
 const fileManagement = require('file-management');

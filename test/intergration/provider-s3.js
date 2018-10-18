@@ -11,13 +11,14 @@ describe('S3 Provider', () => {
     assert(process.env.AWS_ACCESS_KEY_ID, 'AWS_ACCESS_KEY_ID must be defined as env var');
     assert(process.env.AWS_SECRET_ACCESS_KEY, 'AWS_SECRET_ACCESS_KEY must be defined as env var');
     assert(process.env.AWS_REGION, 'process.env.AWS_REGION must be defined as env var');
+    assert(process.env.CLOUDFRONT_DISTRIBUTION_ID, 'process.env.CLOUDFRONT_DISTRIBUTION_ID must be defined as env var');
 
     // use the default provider
     const manager = fileManagement.create('S3', {
       auth: {
         AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
         AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
-        AWS_REGION: process.env.AWS_REGION,
+        AWS_REGION: process.env.AWS_REGION
       },
       options: {}
     });
@@ -25,6 +26,7 @@ describe('S3 Provider', () => {
     expect(manager).to.be.an('Object').and.to.be.ok;
     expect(manager.downloadFile).to.be.a('Function').and.to.be.ok;
     expect(manager.uploadFile).to.be.a('Function').and.to.be.ok;
+    expect(manager.invalidate).to.be.a('Function').and.to.be.ok;
     expect(manager.deleteFile).to.be.a('Function').and.to.be.ok;
 
     const testFileName = 'test-LICENSE';
@@ -42,6 +44,12 @@ describe('S3 Provider', () => {
             .and.to.include('ci');
         });
     });
+
+    it('to run invalidation', () => manager.invalidate().then((result) => {
+      expect(result).to.be.an('object').and.to.be.ok;
+      expect(result.Location).to.be.a('string').and.to.be.ok;
+      expect(result.Invalidation).to.be.an('object').and.to.be.ok;
+    }));
 
     it('to download a file', () => {
       const stream = fs.createWriteStream(testFileName);
