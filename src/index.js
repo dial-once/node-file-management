@@ -10,44 +10,7 @@ const defaultConfig = require('./providers/config').create();
  */
 module.exports.create = (provider = 'default', config = defaultConfig) => {
   assert(provider, 'A provider must be specified');
-  const activeProvider = providerFactory.createProvider(provider, Object.assign({ options: {} }, config));
-  /**
-   *@class FileManager
-   */
-  return {
-    /**
-     * Download a file using a provider
-     * @method downloadFile
-     * @name downloadFile
-     * @param args
-     * @return {Promise}
-     */
-    downloadFile(...args) {
-      return activeProvider.downloadFile(...args);
-    },
-
-    /**
-     * Upload a file using a provider
-     * @method
-     * @name uploadFile
-     * @param args
-     * @return {Promise}
-     */
-    uploadFile(...args) {
-      return activeProvider.uploadFile(...args);
-    },
-
-    /**
-     * Delete a file using a provider
-     * @method
-     * @name deleteFile
-     * @param args
-     * @return {Promise}
-     */
-    deleteFile(...args) {
-      return activeProvider.deleteFile(...args);
-    }
-  };
+  return providerFactory.createProvider(provider, Object.assign({ options: {} }, config));
 };
 
 module.exports.providers = providerFactory.providers;
