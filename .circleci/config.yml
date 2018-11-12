@@ -39,10 +39,6 @@ jobs:
           key: v1-dependencies-{{ .Branch }}-{{ checksum "package.json" }}
 
       - run:
-          name: Init project
-          command: make init
-
-      - run:
           name: Linting
           command: make lint
 
