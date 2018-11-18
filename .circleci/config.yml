@@ -32,9 +32,6 @@ jobs:
           - node_modules
           key: v1-dependencies-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
-          name: Initialize
-          command: make init
-      - run:
           name: Testing
           command: make test
 
